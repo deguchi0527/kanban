@@ -13,6 +13,10 @@ class CardsController < ApplicationController
     end
   end
 
+  def show
+    @card = Card.find(params[:id])
+  end
+
   private
     def crad_params
       params.require(:card).permit(:title, :memo).merge(list_id: params[:list_id])
