@@ -7,7 +7,7 @@ class CardsController < ApplicationController
   end
 
   def create
-    @card = Card.new(crad_params)
+    @card = Card.new(new_crad_params)
     if @card.save
       redirect_to root_path
     else
@@ -19,10 +19,11 @@ class CardsController < ApplicationController
   end
 
   def edit
+    @lists = List.where(user_id: current_user.id)
   end
 
   def update
-    if @card.update(crad_params)
+    if @card.update(edit_crad_params)
       redirect_to root_path
     else
       render :edit
@@ -35,8 +36,12 @@ class CardsController < ApplicationController
   end
 
   private
-    def crad_params
+    def new_crad_params
       params.require(:card).permit(:title, :memo).merge(list_id: params[:list_id])
+    end
+    
+    def edit_crad_params
+      params.require(:card).permit(:title, :memo, :list_id)
     end
 
     def set_card
