@@ -1,7 +1,7 @@
 class CardsController < ApplicationController
   def new
     @card = Card.new
-    @list = List.find(params[:id])
+    @list = List.find(params[:list_id])
   end
 
   def create
